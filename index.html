@@ -18,47 +18,22 @@
               <!-- JavaScriptで記述 -->  
             </div>
         </div><!-- container -->
-        <script>
-            var images = [
-                {
-                    "path" : "img/img01.jpg",
-                    "name" : "sansaisan",
-                    "caption" : "こっちは貫禄ありすぎ"
-                }
-                ,
-                {
-                    "path" : "img/img02.jpg",
-                    "name" : "yukky_13dream",
-                    "caption" : "年明け富士山"
-                }
-                ,
-                {
-                    "path" : "img/img03.jpg",
-                    "name" : "maako",
-                    "caption" : "空と大地の境界線って、どのあたり？"
-                }
-            ];
-
-            var img;
-            var caption;
-            var photo;
-
-            for (var i = 0; i < images.length ; i++) {
-                img = document.createElement('img');
-                img.setAttribute('src', images[i].path);
-            
-                caption = document.createElement('div');
-                caption.className = 'inner';
-                caption.innerHTML = 
-                    '<p>' + images[i].caption + '<span>' + images[i].name + '</span></p>';
-            
-                photo = document.createElement('div');
-                photo.className = 'photo';
-                photo.appendChild(img);
-                photo.appendChild(caption);
-
-                document.getElementById('img_unit').appendChild(photo);
-            }
-        </script>
     </body>
+    <script src="js/jquery.min.js"></script>
+    <script>
+        $.getJSON('https://h2o-space.com/htmlbook/images.php', function(data){
+            for (var i=0 ; i<data.length ; i++) {
+                $('<div class="photo"></div>')
+                .append('<img src="' + data[i].path + '">')
+                .append('<div class="inner"><p>' + data[i].caption + 
+                '<span>' + data[i].name + '</span></p></div>')
+                .appendTo('#img_unit');
+
+            }
+            // alert('データを受信しました。');
+        })
+    </script>
+    <script>
+        // $('#img_unit').html('ここに画像リストが表示されます').css('margin-top', '100px');
+    </script>
 </html>
